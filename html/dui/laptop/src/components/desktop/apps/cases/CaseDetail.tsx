@@ -3,6 +3,7 @@ import type { Case, CaseEvidence, CaseNote, CaseStatus } from "./CasesApp";
 import { useTranslation } from "../../../TranslationContext";
 import Spinner from "../../../atoms/Spinner";
 import EvidenceChooser, { type ChosenEvidence, type EvidenceDetails } from "../../../atoms/EvidenceChooser";
+import styles from "../../../../css/CaseDetail.module.css";
 
 interface CaseDetailProps {
     caseItem: Case;
@@ -212,19 +213,12 @@ export default function CaseDetail(props: CaseDetailProps) {
         return date.toLocaleDateString() + " " + date.toLocaleTimeString();
     };
 
-    return <div style={{ width: "100%", height: "100%", padding: "20px", display: "flex", flexDirection: "column", gap: "20px", overflow: "auto" }}>
+    return <div className={styles.container}>
         {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className={styles.header}>
             <button
                 onClick={props.onBack}
-                style={{
-                    padding: "10px 20px",
-                    background: "white",
-                    border: "2px solid #000",
-                    cursor: "pointer",
-                    fontFamily: "monospace",
-                    fontSize: "14px"
-                }}
+                className={`${styles.back__button} hoverable`}
             >
                 ← {t("laptop.desktop_screen.cases_app.back")}
             </button>
@@ -232,44 +226,21 @@ export default function CaseDetail(props: CaseDetailProps) {
             {!editMode ? (
                 <button
                     onClick={() => setEditMode(true)}
-                    style={{
-                        padding: "10px 20px",
-                        background: "#008080",
-                        color: "white",
-                        border: "2px solid #000",
-                        cursor: "pointer",
-                        fontFamily: "monospace",
-                        fontSize: "14px"
-                    }}
+                    className={`${styles.edit__button} hoverable`}
                 >
                     {t("laptop.desktop_screen.cases_app.edit")}
                 </button>
             ) : (
-                <div style={{ display: "flex", gap: "10px" }}>
+                <div style={{ display: "flex", gap: "15px" }}>
                     <button
                         onClick={() => setEditMode(false)}
-                        style={{
-                            padding: "10px 20px",
-                            background: "white",
-                            border: "2px solid #000",
-                            cursor: "pointer",
-                            fontFamily: "monospace",
-                            fontSize: "14px"
-                        }}
+                        className={`${styles.cancel__button} hoverable`}
                     >
                         {t("laptop.desktop_screen.cases_app.cancel")}
                     </button>
                     <button
                         onClick={handleSaveCase}
-                        style={{
-                            padding: "10px 20px",
-                            background: "#4CAF50",
-                            color: "white",
-                            border: "2px solid #000",
-                            cursor: "pointer",
-                            fontFamily: "monospace",
-                            fontSize: "14px"
-                        }}
+                        className={`${styles.save__button} hoverable`}
                     >
                         {t("laptop.desktop_screen.cases_app.save")}
                     </button>
@@ -278,21 +249,13 @@ export default function CaseDetail(props: CaseDetailProps) {
         </div>
 
         {/* Case Info */}
-        <div style={{ background: "white", border: "2px solid #000", padding: "20px" }}>
-            <div style={{ marginBottom: "15px" }}>
-                <strong style={{ fontFamily: "monospace", fontSize: "18px" }}>
-                    {props.caseItem.case_number}
-                </strong>
+        <div className={styles.info__panel}>
+            <div className={styles.case__number}>
+                {props.caseItem.case_number}
                 {!editMode ? (
                     <span
-                        style={{
-                            marginLeft: "10px",
-                            padding: "4px 12px",
-                            background: getStatusColor(props.caseItem.status),
-                            color: "white",
-                            fontFamily: "monospace",
-                            fontSize: "14px"
-                        }}
+                        className={styles.status__badge}
+                        style={{ background: getStatusColor(props.caseItem.status) }}
                     >
                         {props.caseItem.status.toUpperCase()}
                     </span>
@@ -300,13 +263,7 @@ export default function CaseDetail(props: CaseDetailProps) {
                     <select
                         value={editedStatus}
                         onChange={(e) => setEditedStatus(e.target.value as CaseStatus)}
-                        style={{
-                            marginLeft: "10px",
-                            padding: "4px 12px",
-                            border: "2px solid #000",
-                            fontFamily: "monospace",
-                            fontSize: "14px"
-                        }}
+                        className={styles.status__select}
                     >
                         <option value="open">{t("laptop.desktop_screen.cases_app.status_open")}</option>
                         <option value="active">{t("laptop.desktop_screen.cases_app.status_active")}</option>
@@ -316,12 +273,12 @@ export default function CaseDetail(props: CaseDetailProps) {
                 )}
             </div>
 
-            <div style={{ marginBottom: "10px" }}>
-                <label style={{ fontFamily: "monospace", fontSize: "14px", fontWeight: "bold" }}>
+            <div className={styles.field__group}>
+                <label className={styles.field__label}>
                     {t("laptop.desktop_screen.cases_app.title")}:
                 </label>
                 {!editMode ? (
-                    <div style={{ fontFamily: "monospace", fontSize: "14px", marginTop: "5px" }}>
+                    <div className={styles.field__value}>
                         {props.caseItem.title}
                     </div>
                 ) : (
@@ -329,24 +286,17 @@ export default function CaseDetail(props: CaseDetailProps) {
                         type="text"
                         value={editedTitle}
                         onChange={(e) => setEditedTitle(e.target.value)}
-                        style={{
-                            width: "100%",
-                            padding: "8px",
-                            border: "2px solid #000",
-                            fontFamily: "monospace",
-                            fontSize: "14px",
-                            marginTop: "5px"
-                        }}
+                        className={`${styles.field__input} textable`}
                     />
                 )}
             </div>
 
-            <div style={{ marginBottom: "10px" }}>
-                <label style={{ fontFamily: "monospace", fontSize: "14px", fontWeight: "bold" }}>
+            <div className={styles.field__group}>
+                <label className={styles.field__label}>
                     {t("laptop.desktop_screen.cases_app.description")}:
                 </label>
                 {!editMode ? (
-                    <div style={{ fontFamily: "monospace", fontSize: "14px", marginTop: "5px", whiteSpace: "pre-wrap" }}>
+                    <div className={styles.field__value}>
                         {props.caseItem.description || t("laptop.desktop_screen.cases_app.no_description")}
                     </div>
                 ) : (
@@ -354,25 +304,17 @@ export default function CaseDetail(props: CaseDetailProps) {
                         value={editedDescription}
                         onChange={(e) => setEditedDescription(e.target.value)}
                         rows={4}
-                        style={{
-                            width: "100%",
-                            padding: "8px",
-                            border: "2px solid #000",
-                            fontFamily: "monospace",
-                            fontSize: "14px",
-                            marginTop: "5px",
-                            resize: "vertical"
-                        }}
+                        className={`${styles.field__textarea} textable`}
                     />
                 )}
             </div>
 
-            <div style={{ marginBottom: "10px" }}>
-                <label style={{ fontFamily: "monospace", fontSize: "14px", fontWeight: "bold" }}>
+            <div className={styles.field__group}>
+                <label className={styles.field__label}>
                     {t("laptop.desktop_screen.cases_app.assigned_to")}:
                 </label>
                 {!editMode ? (
-                    <div style={{ fontFamily: "monospace", fontSize: "14px", marginTop: "5px" }}>
+                    <div className={styles.field__value}>
                         {props.caseItem.assigned_to || t("laptop.desktop_screen.cases_app.unassigned")}
                     </div>
                 ) : (
@@ -380,19 +322,12 @@ export default function CaseDetail(props: CaseDetailProps) {
                         type="text"
                         value={editedAssignedTo}
                         onChange={(e) => setEditedAssignedTo(e.target.value)}
-                        style={{
-                            width: "100%",
-                            padding: "8px",
-                            border: "2px solid #000",
-                            fontFamily: "monospace",
-                            fontSize: "14px",
-                            marginTop: "5px"
-                        }}
+                        className={`${styles.field__input} textable`}
                     />
                 )}
             </div>
 
-            <div style={{ display: "flex", gap: "30px", marginTop: "15px", fontFamily: "monospace", fontSize: "12px", color: "#666" }}>
+            <div className={styles.metadata}>
                 <div>{t("laptop.desktop_screen.cases_app.created_by")}: {props.caseItem.created_by}</div>
                 <div>{t("laptop.desktop_screen.cases_app.created_at")}: {formatDate(props.caseItem.created_at)}</div>
                 <div>{t("laptop.desktop_screen.cases_app.updated_at")}: {formatDate(props.caseItem.updated_at)}</div>
@@ -400,75 +335,49 @@ export default function CaseDetail(props: CaseDetailProps) {
         </div>
 
         {loading ? (
-            <div style={{ display: "flex", justifyContent: "center", padding: "40px" }}>
-                <Spinner />
+            <div className={styles.loading__container}>
+                <Spinner black />
             </div>
         ) : (
             <>
                 {/* Evidence Section */}
-                <div style={{ background: "white", border: "2px solid #000", padding: "20px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "15px" }}>
-                        <h3 style={{ margin: 0, fontFamily: "monospace" }}>
+                <div className={styles.section__panel}>
+                    <div className={styles.section__header}>
+                        <h3 className={styles.section__title}>
                             {t("laptop.desktop_screen.cases_app.evidence")} ({evidence.length})
                         </h3>
                         <button
                             onClick={handleOpenAddEvidenceModal}
-                            style={{
-                                padding: "8px 16px",
-                                background: "#008080",
-                                color: "white",
-                                border: "2px solid #000",
-                                cursor: "pointer",
-                                fontFamily: "monospace",
-                                fontSize: "12px"
-                            }}
+                            className={`${styles.add__button} hoverable`}
                         >
                             + {t("laptop.desktop_screen.cases_app.add_evidence")}
                         </button>
                     </div>
 
                     {evidence.length === 0 ? (
-                        <div style={{ textAlign: "center", padding: "20px", fontFamily: "monospace", color: "#666" }}>
+                        <div className={styles.empty__message}>
                             {t("laptop.desktop_screen.cases_app.no_evidence")}
                         </div>
                     ) : (
-                        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                        <div className={styles.evidence__list}>
                             {evidence.map((ev) => (
-                                <div
-                                    key={ev.id}
-                                    style={{
-                                        padding: "10px",
-                                        border: "2px solid #000",
-                                        background: "#f0f0f0",
-                                        display: "flex",
-                                        justifyContent: "space-between"
-                                    }}
-                                >
-                                    <div>
-                                        <div style={{ fontFamily: "monospace", fontSize: "14px", fontWeight: "bold" }}>
+                                <div key={ev.id} className={styles.evidence__item}>
+                                    <div className={styles.evidence__content}>
+                                        <div className={styles.evidence__type}>
                                             {ev.evidence_type.toUpperCase()}: {ev.evidence_identifier}
                                         </div>
                                         {ev.notes && (
-                                            <div style={{ fontFamily: "monospace", fontSize: "12px", color: "#666", marginTop: "5px" }}>
+                                            <div className={styles.evidence__notes}>
                                                 {ev.notes}
                                             </div>
                                         )}
-                                        <div style={{ fontFamily: "monospace", fontSize: "11px", color: "#999", marginTop: "5px" }}>
+                                        <div className={styles.evidence__meta}>
                                             Added by {ev.added_by} on {formatDate(ev.added_at)}
                                         </div>
                                     </div>
                                     <button
                                         onClick={() => handleRemoveEvidence(ev.id)}
-                                        style={{
-                                            padding: "5px 10px",
-                                            background: "#f44336",
-                                            color: "white",
-                                            border: "2px solid #000",
-                                            cursor: "pointer",
-                                            fontFamily: "monospace",
-                                            fontSize: "12px",
-                                            height: "fit-content"
-                                        }}
+                                        className={`${styles.remove__button} hoverable`}
                                     >
                                         {t("laptop.desktop_screen.cases_app.remove")}
                                     </button>
@@ -479,64 +388,43 @@ export default function CaseDetail(props: CaseDetailProps) {
                 </div>
 
                 {/* Notes Section */}
-                <div style={{ background: "white", border: "2px solid #000", padding: "20px" }}>
-                    <h3 style={{ margin: "0 0 15px 0", fontFamily: "monospace" }}>
+                <div className={styles.section__panel}>
+                    <h3 className={styles.section__title}>
                         {t("laptop.desktop_screen.cases_app.notes")} ({notes.length})
                     </h3>
 
-                    <div style={{ marginBottom: "15px" }}>
+                    <div className={styles.note__form}>
                         <textarea
                             value={newNote}
                             onChange={(e) => setNewNote(e.target.value)}
                             placeholder={t("laptop.desktop_screen.cases_app.add_note_placeholder")}
                             rows={3}
-                            style={{
-                                width: "100%",
-                                padding: "8px",
-                                border: "2px solid #000",
-                                fontFamily: "monospace",
-                                fontSize: "14px",
-                                resize: "vertical"
-                            }}
+                            className={`${styles.note__textarea} textable`}
                         />
                         <button
                             onClick={handleAddNote}
                             disabled={!newNote.trim()}
-                            style={{
-                                marginTop: "10px",
-                                padding: "8px 16px",
-                                background: !newNote.trim() ? "#ccc" : "#008080",
-                                color: "white",
-                                border: "2px solid #000",
-                                cursor: !newNote.trim() ? "not-allowed" : "pointer",
-                                fontFamily: "monospace",
-                                fontSize: "14px"
-                            }}
+                            className={`${styles.note__submit} hoverable`}
                         >
                             {t("laptop.desktop_screen.cases_app.add_note")}
                         </button>
                     </div>
 
                     {notes.length === 0 ? (
-                        <div style={{ textAlign: "center", padding: "20px", fontFamily: "monospace", color: "#666" }}>
+                        <div className={styles.empty__message}>
                             {t("laptop.desktop_screen.cases_app.no_notes")}
                         </div>
                     ) : (
-                        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                        <div className={styles.notes__list}>
                             {notes.map((note) => (
-                                <div
-                                    key={note.id}
-                                    style={{
-                                        padding: "10px",
-                                        border: "2px solid #000",
-                                        background: "#f0f0f0"
-                                    }}
-                                >
-                                    <div style={{ fontFamily: "monospace", fontSize: "14px", whiteSpace: "pre-wrap" }}>
-                                        {note.note}
-                                    </div>
-                                    <div style={{ fontFamily: "monospace", fontSize: "11px", color: "#999", marginTop: "5px" }}>
-                                        {note.created_by} - {formatDate(note.created_at)}
+                                <div key={note.id} className={styles.note__item}>
+                                    <div className={styles.note__content}>
+                                        <div className={styles.note__text}>
+                                            {note.note}
+                                        </div>
+                                        <div className={styles.note__meta}>
+                                            {note.created_by} - {formatDate(note.created_at)}
+                                        </div>
                                     </div>
                                 </div>
                             ))}
@@ -548,36 +436,16 @@ export default function CaseDetail(props: CaseDetailProps) {
 
         {/* Add Evidence Modal */}
         {showAddEvidenceModal && (
-            <div style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 1000
-            }}>
-                <div style={{
-                    background: "#c0c0c0",
-                    border: "3px solid #000",
-                    padding: "20px",
-                    minWidth: "700px",
-                    maxWidth: "900px",
-                    maxHeight: "80vh",
-                    overflow: "auto",
-                    boxShadow: "5px 5px 0px #000"
-                }}>
-                    <h3 style={{ margin: "0 0 20px 0", fontFamily: "monospace" }}>
+            <div className={styles.modal__overlay}>
+                <div className={styles.modal__content}>
+                    <h3 className={styles.modal__title}>
                         {t("laptop.desktop_screen.cases_app.add_evidence")}
                     </h3>
 
-                    <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+                    <div className={styles.modal__form}>
                         {/* Evidence Type Selection */}
                         <div>
-                            <label style={{ fontFamily: "monospace", fontSize: "14px", display: "block", marginBottom: "5px" }}>
+                            <label className={styles.form__label}>
                                 {t("laptop.desktop_screen.cases_app.evidence_type")}
                             </label>
                             <select
@@ -589,14 +457,7 @@ export default function CaseDetail(props: CaseDetailProps) {
                                     setDatabaseSearchResults([]);
                                     setDatabaseSearchText("");
                                 }}
-                                style={{
-                                    width: "100%",
-                                    padding: "8px",
-                                    border: "2px solid #000",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px",
-                                    background: "white"
-                                }}
+                                className={styles.form__select}
                             >
                                 <option value="fingerprint">{t("laptop.desktop_screen.cases_app.evidence_fingerprint")}</option>
                                 <option value="dna">{t("laptop.desktop_screen.cases_app.evidence_dna")}</option>
@@ -607,24 +468,14 @@ export default function CaseDetail(props: CaseDetailProps) {
 
                         {/* Source Mode Tabs - Only for fingerprint/DNA */}
                         {(newEvidenceType === "fingerprint" || newEvidenceType === "dna") && (
-                            <div style={{ display: "flex", gap: "5px", borderBottom: "2px solid #000" }}>
+                            <div className={styles.tabs}>
                                 <button
                                     onClick={() => {
                                         setEvidenceSourceMode("inventory");
                                         setNewEvidenceId("");
                                         setChosenEvidence(null);
                                     }}
-                                    style={{
-                                        padding: "8px 16px",
-                                        background: evidenceSourceMode === "inventory" ? "#008080" : "white",
-                                        color: evidenceSourceMode === "inventory" ? "white" : "#000",
-                                        border: "2px solid #000",
-                                        borderBottom: evidenceSourceMode === "inventory" ? "none" : "2px solid #000",
-                                        cursor: "pointer",
-                                        fontFamily: "monospace",
-                                        fontSize: "14px",
-                                        marginBottom: "-2px"
-                                    }}
+                                    className={evidenceSourceMode === "inventory" ? styles.tab__active : styles.tab__inactive}
                                 >
                                     From Inventory
                                 </button>
@@ -634,17 +485,7 @@ export default function CaseDetail(props: CaseDetailProps) {
                                         setNewEvidenceId("");
                                         setDatabaseSearchResults([]);
                                     }}
-                                    style={{
-                                        padding: "8px 16px",
-                                        background: evidenceSourceMode === "database" ? "#008080" : "white",
-                                        color: evidenceSourceMode === "database" ? "white" : "#000",
-                                        border: "2px solid #000",
-                                        borderBottom: evidenceSourceMode === "database" ? "none" : "2px solid #000",
-                                        cursor: "pointer",
-                                        fontFamily: "monospace",
-                                        fontSize: "14px",
-                                        marginBottom: "-2px"
-                                    }}
+                                    className={evidenceSourceMode === "database" ? styles.tab__active : styles.tab__inactive}
                                 >
                                     Search Database
                                 </button>
@@ -654,17 +495,7 @@ export default function CaseDetail(props: CaseDetailProps) {
                                         setNewEvidenceId("");
                                         setChosenEvidence(null);
                                     }}
-                                    style={{
-                                        padding: "8px 16px",
-                                        background: evidenceSourceMode === "manual" ? "#008080" : "white",
-                                        color: evidenceSourceMode === "manual" ? "white" : "#000",
-                                        border: "2px solid #000",
-                                        borderBottom: evidenceSourceMode === "manual" ? "none" : "2px solid #000",
-                                        cursor: "pointer",
-                                        fontFamily: "monospace",
-                                        fontSize: "14px",
-                                        marginBottom: "-2px"
-                                    }}
+                                    className={evidenceSourceMode === "manual" ? styles.tab__active : styles.tab__inactive}
                                 >
                                     Manual Entry
                                 </button>
@@ -672,11 +503,11 @@ export default function CaseDetail(props: CaseDetailProps) {
                         )}
 
                         {/* Content based on source mode */}
-                        <div style={{ background: "white", border: "2px solid #000", padding: "15px", minHeight: "200px" }}>
+                        <div className={styles.tab__content}>
                             {/* Inventory Mode */}
                             {evidenceSourceMode === "inventory" && (newEvidenceType === "fingerprint" || newEvidenceType === "dna") && (
-                                <div>
-                                    <p style={{ fontFamily: "monospace", fontSize: "14px", marginBottom: "10px" }}>
+                                <div className={styles.evidence__chooser__container}>
+                                    <p className={styles.hint__text}>
                                         Select evidence from your inventory:
                                     </p>
                                     <EvidenceChooser
@@ -688,8 +519,8 @@ export default function CaseDetail(props: CaseDetailProps) {
                                         onEvidenceSelection={handleEvidenceSelection}
                                     />
                                     {chosenEvidence?.evidence && (
-                                        <div style={{ marginTop: "10px", padding: "10px", background: "#f0f0f0", border: "2px solid #000" }}>
-                                            <p style={{ fontFamily: "monospace", fontSize: "14px", fontWeight: "bold" }}>
+                                        <div className={styles.evidence__selected}>
+                                            <p className={styles.evidence__selected__text}>
                                                 Selected: {chosenEvidence.evidence.identifier}
                                             </p>
                                         </div>
@@ -700,41 +531,27 @@ export default function CaseDetail(props: CaseDetailProps) {
                             {/* Database Search Mode */}
                             {evidenceSourceMode === "database" && (newEvidenceType === "fingerprint" || newEvidenceType === "dna") && (
                                 <div>
-                                    <p style={{ fontFamily: "monospace", fontSize: "14px", marginBottom: "10px" }}>
+                                    <p className={styles.hint__text}>
                                         Search stored biometric database:
                                     </p>
-                                    <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
+                                    <div className={styles.database__search}>
                                         <input
                                             type="text"
                                             placeholder="Search by identifier, name, or birthdate..."
                                             value={databaseSearchText}
                                             onChange={(e) => setDatabaseSearchText(e.target.value)}
-                                            style={{
-                                                flex: 1,
-                                                padding: "8px",
-                                                border: "2px solid #000",
-                                                fontFamily: "monospace",
-                                                fontSize: "14px"
-                                            }}
+                                            className={`${styles.database__search__input} textable`}
                                         />
                                         <button
                                             onClick={handleDatabaseSearch}
-                                            style={{
-                                                padding: "8px 16px",
-                                                background: "#008080",
-                                                color: "white",
-                                                border: "2px solid #000",
-                                                cursor: "pointer",
-                                                fontFamily: "monospace",
-                                                fontSize: "14px"
-                                            }}
+                                            className={`${styles.database__search__button} hoverable`}
                                         >
                                             Search
                                         </button>
                                     </div>
-                                    <div style={{ maxHeight: "250px", overflow: "auto" }}>
+                                    <div className={styles.database__results}>
                                         {databaseSearchResults.length === 0 ? (
-                                            <p style={{ fontFamily: "monospace", fontSize: "14px", color: "#666", textAlign: "center" }}>
+                                            <p className={styles.database__empty}>
                                                 {databaseSearchText ? "No results found" : "Enter search terms and click Search"}
                                             </p>
                                         ) : (
@@ -742,16 +559,7 @@ export default function CaseDetail(props: CaseDetailProps) {
                                                 <div
                                                     key={index}
                                                     onClick={() => handleSelectDatabaseEntry(entry)}
-                                                    style={{
-                                                        padding: "10px",
-                                                        marginBottom: "5px",
-                                                        border: "2px solid #000",
-                                                        background: newEvidenceId === entry.identifier ? "#008080" : "#f0f0f0",
-                                                        color: newEvidenceId === entry.identifier ? "white" : "#000",
-                                                        cursor: "pointer",
-                                                        fontFamily: "monospace",
-                                                        fontSize: "14px"
-                                                    }}
+                                                    className={newEvidenceId === entry.identifier ? styles.database__entry__selected : styles.database__entry__unselected}
                                                 >
                                                     <strong>{entry.identifier}</strong><br />
                                                     {entry.firstname} {entry.lastname} - {entry.birthdate}
@@ -765,7 +573,7 @@ export default function CaseDetail(props: CaseDetailProps) {
                             {/* Manual Entry Mode */}
                             {(evidenceSourceMode === "manual" || newEvidenceType === "magazine" || newEvidenceType === "other") && (
                                 <div>
-                                    <label style={{ fontFamily: "monospace", fontSize: "14px", display: "block", marginBottom: "5px" }}>
+                                    <label className={styles.manual__entry__label}>
                                         {t("laptop.desktop_screen.cases_app.evidence_identifier")} *
                                     </label>
                                     <input
@@ -773,13 +581,7 @@ export default function CaseDetail(props: CaseDetailProps) {
                                         value={newEvidenceId}
                                         onChange={(e) => setNewEvidenceId(e.target.value)}
                                         placeholder="Enter evidence identifier manually..."
-                                        style={{
-                                            width: "100%",
-                                            padding: "8px",
-                                            border: "2px solid #000",
-                                            fontFamily: "monospace",
-                                            fontSize: "14px"
-                                        }}
+                                        className={`${styles.manual__entry__input} textable`}
                                     />
                                 </div>
                             )}
@@ -787,7 +589,7 @@ export default function CaseDetail(props: CaseDetailProps) {
 
                         {/* Notes Section */}
                         <div>
-                            <label style={{ fontFamily: "monospace", fontSize: "14px", display: "block", marginBottom: "5px" }}>
+                            <label className={styles.form__label}>
                                 {t("laptop.desktop_screen.cases_app.notes")}
                             </label>
                             <textarea
@@ -795,44 +597,22 @@ export default function CaseDetail(props: CaseDetailProps) {
                                 onChange={(e) => setNewEvidenceNotes(e.target.value)}
                                 rows={3}
                                 placeholder="Add any additional notes about this evidence..."
-                                style={{
-                                    width: "100%",
-                                    padding: "8px",
-                                    border: "2px solid #000",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px",
-                                    resize: "vertical"
-                                }}
+                                className={`${styles.form__textarea} textable`}
                             />
                         </div>
 
                         {/* Action Buttons */}
-                        <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "10px" }}>
+                        <div className={styles.modal__actions}>
                             <button
                                 onClick={() => setShowAddEvidenceModal(false)}
-                                style={{
-                                    padding: "10px 20px",
-                                    background: "white",
-                                    border: "2px solid #000",
-                                    cursor: "pointer",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px"
-                                }}
+                                className={`${styles.modal__cancel} hoverable`}
                             >
                                 {t("laptop.desktop_screen.cases_app.cancel")}
                             </button>
                             <button
                                 onClick={handleAddEvidence}
                                 disabled={!newEvidenceId.trim()}
-                                style={{
-                                    padding: "10px 20px",
-                                    background: !newEvidenceId.trim() ? "#ccc" : "#4CAF50",
-                                    color: "white",
-                                    border: "2px solid #000",
-                                    cursor: !newEvidenceId.trim() ? "not-allowed" : "pointer",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px"
-                                }}
+                                className={`${styles.modal__submit} hoverable`}
                             >
                                 {t("laptop.desktop_screen.cases_app.add")}
                             </button>
