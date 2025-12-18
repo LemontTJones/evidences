@@ -1,0 +1,287 @@
+{
+    "commands": {
+        "invalid_radius": {
+            "title": "Deliller",
+            "description": "Delillerin silinmesi başarısız, belirtilen yarıçap geçersiz. (1-500 arası bir tam sayı olmalıdır)"
+        },
+        "no_evidences": {
+            "title": "Deliller",
+            "description": "Delillerin silinmesi başarısız, belirtilen yarıçap içinde delil bulunmuyor."
+        },
+        "evidences_deleted": {
+            "title": "Deliller",
+            "description": "%s yarıçapındaki tüm deliller silindi. (Miktar: %s)"
+        }
+    },
+    "evidences": {
+        "evidence_box_label_dialog": {
+            "title": "Kutu etiketi",
+            "name_textfield_title": "İsim",
+            "name_textfield_details": "Envanterде görüntülenen isim",
+            "description_textfield_title": "Açıklama",
+            "description_textfield_details": "Envanterде öğenin altında göreceğiniz kısa açıklama"
+        },
+        "fingerprint": {
+            "collecting_label": "Parmak izi topla",
+            "destroying_label": "Parmak izini yok et"
+        },
+        "blood": {
+            "collecting_label": "Kan izi topla",
+            "destroying_label": "Kan izini yok et"
+        },
+        "magazine": {
+            "collecting_label": "Şarjör topla",
+            "destroying_label": "Şarjörü yok et"
+        },
+        "information": {
+            "in_vehicle": "%s üzerinde (plaka: %s)",
+            "at_vehicle": "araç üzerinde (plaka: %s)",
+            "at_coords": "yerde",
+            "metadata": {
+                "crime_scene": "Suç mahali",
+                "collection_time": "Toplama zamanı",
+                "additionalData": "Bilgi",
+                "weapon_label": "Silah",
+                "serial_number": "Seri numarası",
+                "firstname": "Ad",
+                "lastname": "Soyad",
+                "birthdate": "Doğum tarihi"
+            },
+            "seats": {
+                "-1": "ön sürücü koltuğu",
+                "0": "ön yolcu koltuğu",
+                "1": "arka sürücü koltuğu",
+                "2": "arka yolcu koltuğu"
+            },
+            "doors": {
+                "0": "ön sürücü kapısı",
+                "1": "ön yolcu kapısı",
+                "2": "arka sürücü kapısı",
+                "3": "arka yolcu kapısı"
+            }
+        },
+        "notifications": {
+            "common": {
+                "placeholders": {
+                    "at_coords": "yerde",
+                    "at_player": "bu oyuncuda",
+                    "at_vehicle_door": "bu araç kapısında",
+                    "at_vehicle_seat": "araç koltuğunuzda",
+                    "at_entity": "bu varlık üzerinde",
+                    "at_weapon": "silah üzerinde"
+                },
+                "errors": {
+                    "invalid_item": {
+                        "title": "Deliller",
+                        "description": "%s öğesi mevcut değil"
+                    },
+                    "invalid_inventory": {
+                        "title": "Deliller",
+                        "description": "%s envanteri mevcut değil"
+                    },
+                    "not_enough_items": {
+                        "title": "Deliller",
+                        "description": "Eksik: %s"
+                    },
+                    "inventory_full": {
+                        "title": "Deliller",
+                        "description": "Envanteriniz dolu"
+                    }
+                }
+            },
+            "collect": {
+                "title": "Deliller",
+                "description": "%s delilleri toplandı"
+            },
+            "destroy": {
+                "title": "Deliller",
+                "description": "%s delilleri yok edildi"
+            }
+        }
+    },
+    "fingerprint_scanner": {
+        "target": "Parmağınızı tarayıcıya yerleştirin",
+        "scanned_successful": {
+            "title": "Deliller",
+            "description": "Parmak izi tarandı"
+        },
+        "scan_failed": {
+            "title": "Deliller",
+            "description": "Parmak izi taranamadı"
+        }
+    },
+    "laptop": {
+        "notifications": {
+            "error_laptop_creation": {
+                "title": "Deliller",
+                "description": "Dizüstü bilgisayar yerleştirilirken hata oluştu"
+            },
+            "error_laptop_pickup": {
+                "title": "Deliller",
+                "description": "Dizüstü bilgisayar alınırken hata oluştu"
+            },
+            "input_help": "Dizüstü bilgisayarı yerleştirmek için %s tuşuna basın.%sBu işlemi iptal etmek için %s kullanın"
+        },
+        "target": {
+            "interact": "Etkileşim",
+            "pickup": "Al"
+        },
+        "screen_saver": {
+            "date_locales": "tr-TR"
+        },
+        "login_screen": {
+            "title": "Diğer kullanıcı",
+            "username_placeholder": "Kullanıcı adı",
+            "password_placeholder": "Şifre",
+            "welcome": "Hoş geldiniz",
+            "missing_permission": "Yanlış kullanıcı adı veya şifre",
+            "ok_button": "Tamam"
+        },
+        "desktop_screen": {
+            "common": {
+                "crime_scene_placeholder": "Suç mahali",
+                "collection_time_placeholder": "Toplama zamanı",
+                "additional_data_placeholder": "Ek bilgi",
+                "firstname_placeholder": "Ad",
+                "lastname_placeholder": "Soyad",
+                "birthdate_placeholder": "Doğum tarihi",
+                "save_button": "Veritabanı kaydını kaydet",
+                "delete_button": "Sil",
+                "label_button": "Öğe etiketini güncelle",
+                "tooltip_label": "Suç mahali, toplama zamanı ve ek bilgiler ile görüntülenen veritabanı kaydındaki değişiklikleri delilin etiketine uygula."
+            },
+            "fingerprint_app": {
+                "name": "Parmak İzleri",
+                "tooltip_save": "Bu delil üzerindeki parmak izi için veritabanında bir kayıt varsa burada görüntülenir ve düzenlenebilir; aksi takdirde yeni bir kayıt oluşturulabilir.",
+                "no_fingerprint_selected": "Listeden parmak izi içeren bir delil seçin.",
+                "no_items_with_fingerprints": "Envanterinizde parmak izi içeren öğe yok."
+            },
+            "dna_app": {
+                "name": "DNA",
+                "tooltip_save": "Bu delil üzerindeki DNA için veritabanında bir kayıt varsa burada görüntülenir ve düzenlenebilir; aksi takdirde yeni bir kayıt oluşturulabilir.",
+                "no_dna_selected": "Listeden DNA içeren bir delil seçin.",
+                "no_items_with_dna": "Envanterinizde DNA içeren öğe yok."
+            },
+            "database_app": {
+                "name": "Veritabanı",
+                "search_placeholder": "Ara...",
+                "type": "Tür",
+                "types": {
+                    "fingerprint": "Parmak İzi",
+                    "dna": "DNA"
+                },
+                "citizen": "Vatandaş",
+                "page": "Sayfa %s / %s",
+                "search_result_error": "Veriler yüklenirken bir hata oluştu!",
+                "search_result_empty": "Kayıt bulunamadı!",
+                "inspect_button": "İncele"
+            },
+            "cases_app": {
+                "name": "Vakalar",
+                "create_case": "Vaka Oluştur",
+                "create_new_case": "Yeni Vaka Oluştur",
+                "search_placeholder": "Vaka ara...",
+                "status_all": "Tümü",
+                "status_open": "Açık",
+                "status_active": "Aktif",
+                "status_closed": "Kapalı",
+                "status_archived": "Arşivlendi",
+                "error_loading": "Vakalar yüklenirken hata oluştu",
+                "no_cases": "Vaka bulunamadı",
+                "assigned_to": "Atanan",
+                "unassigned": "Atanmamış",
+                "previous": "Önceki",
+                "next": "Sonraki",
+                "case_number": "Vaka Numarası",
+                "title": "Başlık",
+                "description": "Açıklama",
+                "cancel": "İptal",
+                "create": "Oluştur",
+                "back": "Geri",
+                "edit": "Düzenle",
+                "save": "Kaydet",
+                "no_description": "Açıklama yok",
+                "created_by": "Oluşturan",
+                "created_at": "Oluşturulma",
+                "updated_at": "Güncellenme",
+                "evidence": "Deliller",
+                "add_evidence": "Delil Ekle",
+                "no_evidence": "Bu vakaya bağlı delil yok",
+                "remove": "Kaldır",
+                "evidence_type": "Delil Türü",
+                "evidence_identifier": "Delil Kimliği",
+                "evidence_fingerprint": "Parmak İzi",
+                "evidence_dna": "DNA",
+                "evidence_magazine": "Şarjör",
+                "evidence_other": "Diğer",
+                "notes": "Notlar",
+                "add_note": "Not Ekle",
+                "add_note_placeholder": "Bu vakaya not ekle...",
+                "no_notes": "Bu vaka için not yok",
+                "add": "Ekle"
+            },
+            "wiretap_app": {
+                "name": "Gizli Dinleme",
+                "warning_popup": {
+                    "title": "Önemli Uyarı",
+                    "warning": "Telefon veya radyo iletişimi yalnızca geçerli bir dinleme emri kapsamında izlenebilir. Acil durumlarda mahkeme onayı olmadan da işlem yapılabilir.",
+                    "accept_button": "Onayla"
+                },
+                "phone_calls": {
+                    "header": "Telefon Görüşmeleri",
+                    "no_calls_running": "Devam eden telefon görüşmesi yok",
+                    "lacking_permissions": "Telefon görüşmelerini dinleme izni yok"
+                },
+                "spy_microphones": {
+                    "header": "Casus Mikrofonlar",
+                    "no_spy_microphones_placed": "Yerleştirilmiş casus mikrofon yok",
+                    "lacking_permissions": "Casus mikrofonları dinlemek için izin eksikliği"
+                },
+                "radio": {
+                    "header": "Radyo",
+                    "lacking_permissions": "Radyo kanallarını dinlemek için gerekli izinler eksik"
+                },
+                "latest_actions": {
+                    "header": "Son Eylemler",
+                    "no_actions_available": "Protokollenmiş eylem yok",
+                    "loading": "Yükleniyor...",
+                    "end_reached": "Listenin sonuna ulaşıldı",
+                    "action_duration": "%s, %s'den %s'ye kadar",
+                    "actions": {
+                        "ObservableCall": "%s, %s arasındaki telefon görüşmesini ele geçirdi",
+                        "ObservableRadioFreq": "%s, %s MHz'deki radyo kanalını ele geçirdi",
+                        "ObservableSpyMicrophone": "%s, %s casus mikrofonunu dinledi"
+                    }
+                },
+                "running_observation_popup" : {
+                    "ObservableCall": "Devam eden telefon görüşmesi ele geçirme #%s",
+                    "ObservableRadioFreq": "%s MHz'deki radyo kanalının devam eden ele geçirilmesi",
+                    "ObservableSpyMicrophone": "%s casus mikrofonu dinleniyor"
+                },
+                "protocol_popup": {
+                    "header": {
+                        "ObservableCall": "Telefon görüşmesi ele geçirme protokolü #%s",
+                        "ObservableRadioFreq": "Radyo kanalı ele geçirme protokolü #%s",
+                        "ObservableSpyMicrophone": "Casus mikrofon gözlem protokolü #%s"
+                    },
+                    "observation_started": "Gözlem başladı.",
+                    "observation_ended": "Gözlem sona erdi."
+                }
+            }
+        }
+    },
+    "spy_microphone": {
+        "input_help": "Casus mikrofonu yerleştirmek için %s tuşuna basın.%sBu işlemi iptal etmek için %s tuşunu kullanın",
+        "error_spy_microphone_creation": {
+            "title": "Evidences",
+            "description": "Bu etikete sahip bir casus mikrofon zaten mevcuttur"
+        },
+        "spy_microphone_label_dialog": {
+            "title": "Etiketli casus mikrofon",
+            "label_textfield_title": "Ad",
+            "label_textfield_details": "Kanıt dizüstü bilgisayarındaki dinleme uygulamasında bu casus mikrofonu tanımlamak için benzersiz bir ad seçin"
+        },
+        "target_destroy": "Casus mikrofonu yok et",
+        "target_collect": "Casus mikrofonu topla"
+    }
+}

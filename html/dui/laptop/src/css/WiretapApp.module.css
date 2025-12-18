@@ -1,0 +1,57 @@
+.observation__chooser {
+    position: absolute;
+    margin-top: 35px;
+    width: 600px;
+    height: 200px;
+    padding-right: 5px;
+    overflow-y: scroll;
+}
+
+.observation__chooser::-webkit-scrollbar {
+    width: 15px;
+}
+
+.observation__chooser::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 10px;
+}
+
+.observation__chooser::-webkit-scrollbar-thumb {
+    background: transparent;
+    background-clip: content-box;
+    border: 5px solid transparent;
+    border-radius: 20px;
+}
+
+.observation__chooser:hover::-webkit-scrollbar-thumb {
+    background: rgb(174, 174, 178); 
+}
+
+
+.observation {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.observation:hover {
+    background: rgb(174, 174, 178);
+}
+
+
+.button {
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.button:hover {
+    background: rgb(174, 174, 178);
+}
