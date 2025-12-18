@@ -2,6 +2,8 @@ import { useState } from "react";
 import type { Case, CasesResponse } from "./CasesApp";
 import { useTranslation } from "../../../TranslationContext";
 import Spinner from "../../../atoms/Spinner";
+import ChevronSVG from "../database/ChevronSVG";
+import styles from "../../../../css/CasesList.module.css";
 
 interface CasesListProps {
     data: CasesResponse | null;
@@ -54,54 +56,33 @@ export default function CasesList(props: CasesListProps) {
         return date.toLocaleDateString() + " " + date.toLocaleTimeString();
     };
 
-    return <div style={{ width: "100%", height: "100%", padding: "20px", display: "flex", flexDirection: "column", gap: "20px" }}>
+    return <div className={styles.container} style={{ background: "#c0c0c0ff" }}>
         {/* Header */}
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-            <h2 style={{ margin: 0, fontFamily: "monospace", fontSize: "24px" }}>
+        <div className={styles.header}>
+            <h2 className={styles.title}>
                 {t("laptop.desktop_screen.cases_app.name")}
             </h2>
             <button
                 onClick={() => setShowCreateModal(true)}
-                style={{
-                    padding: "10px 20px",
-                    background: "#008080",
-                    color: "white",
-                    border: "2px solid #000",
-                    cursor: "pointer",
-                    fontFamily: "monospace",
-                    fontSize: "14px",
-                    boxShadow: "2px 2px 0px #000"
-                }}
+                className={`${styles.create__button} hoverable`}
             >
                 {t("laptop.desktop_screen.cases_app.create_case")}
             </button>
         </div>
 
         {/* Filters */}
-        <div style={{ display: "flex", gap: "15px", alignItems: "center", background: "white", padding: "15px", border: "2px solid #000" }}>
+        <div className={styles.filters}>
             <input
                 type="text"
+                className={`${styles.search__input} textable`}
                 placeholder={t("laptop.desktop_screen.cases_app.search_placeholder")}
                 value={props.searchText}
                 onChange={(e) => props.onSearchChange(e.target.value)}
-                style={{
-                    flex: 1,
-                    padding: "8px",
-                    border: "2px solid #000",
-                    fontFamily: "monospace",
-                    fontSize: "14px"
-                }}
             />
             <select
                 value={props.statusFilter}
                 onChange={(e) => props.onStatusFilterChange(e.target.value)}
-                style={{
-                    padding: "8px",
-                    border: "2px solid #000",
-                    fontFamily: "monospace",
-                    fontSize: "14px",
-                    background: "white"
-                }}
+                className={styles.status__select}
             >
                 <option value="all">{t("laptop.desktop_screen.cases_app.status_all")}</option>
                 <option value="open">{t("laptop.desktop_screen.cases_app.status_open")}</option>
@@ -112,22 +93,32 @@ export default function CasesList(props: CasesListProps) {
         </div>
 
         {/* Cases List */}
-        <div style={{ flex: 1, overflow: "auto", background: "white", border: "2px solid #000", padding: "15px" }}>
+        <div className={styles.cases__container}>
             {props.loading && (
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100%" }}>
-                    <Spinner />
+                <div className={styles.loading__container}>
+                    <Spinner black />
                 </div>
             )}
 
             {props.error && !props.loading && (
-                <div style={{ textAlign: "center", padding: "40px", fontFamily: "monospace", color: "#f44336" }}>
-                    {t("laptop.desktop_screen.cases_app.error_loading")}
+                <div className={styles.error__message}>
+                    <div className={styles.error__content}>
+                        <svg width="100px" height="100px" fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+                        </svg>
+                        <p className={`${styles.message__text} ${styles.error__text}`}>{t("laptop.desktop_screen.cases_app.error_loading")}</p>
+                    </div>
                 </div>
             )}
 
             {!props.loading && !props.error && props.data && props.data.cases.length === 0 && (
-                <div style={{ textAlign: "center", padding: "40px", fontFamily: "monospace" }}>
-                    {t("laptop.desktop_screen.cases_app.no_cases")}
+                <div className={styles.empty__message}>
+                    <div className={styles.empty__content}>
+                        <svg width="100px" height="100px" fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                            <path d="M280-160v-441q0-33 24-56t57-23h439q33 0 56.5 23.5T880-600v320L680-80H360q-33 0-56.5-23.5T280-160ZM81-710q-6-33 13-59.5t52-32.5l434-77q33-6 59.5 13t32.5 52l10 54h-82l-7-40-433 77 40 226v279q-16-9-27.5-24T158-276L81-710Zm279 110v440h280v-160h160v-280H360Zm220 220Z"/>
+                        </svg>
+                        <p className={styles.message__text}>{t("laptop.desktop_screen.cases_app.no_cases")}</p>
+                    </div>
                 </div>
             )}
 
@@ -135,43 +126,28 @@ export default function CasesList(props: CasesListProps) {
                 <div
                     key={caseItem.id}
                     onClick={() => props.onCaseSelect(caseItem)}
-                    style={{
-                        padding: "15px",
-                        marginBottom: "10px",
-                        border: "2px solid #000",
-                        cursor: "pointer",
-                        background: "#f0f0f0",
-                        transition: "background 0.2s"
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = "#e0e0e0"}
-                    onMouseLeave={(e) => e.currentTarget.style.background = "#f0f0f0"}
+                    className={`${styles.case__item} hoverable`}
                 >
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "10px" }}>
+                    <div className={styles.case__header}>
                         <div>
-                            <strong style={{ fontFamily: "monospace", fontSize: "16px" }}>
+                            <strong className={styles.case__number}>
                                 {caseItem.case_number}
                             </strong>
                             <span
-                                style={{
-                                    marginLeft: "10px",
-                                    padding: "2px 8px",
-                                    background: getStatusColor(caseItem.status),
-                                    color: "white",
-                                    fontFamily: "monospace",
-                                    fontSize: "12px"
-                                }}
+                                className={styles.status__badge}
+                                style={{ background: getStatusColor(caseItem.status) }}
                             >
                                 {caseItem.status.toUpperCase()}
                             </span>
                         </div>
-                        <span style={{ fontFamily: "monospace", fontSize: "12px", color: "#666" }}>
+                        <span className={styles.case__date}>
                             {formatDate(caseItem.updated_at)}
                         </span>
                     </div>
-                    <div style={{ fontFamily: "monospace", fontSize: "14px", fontWeight: "bold", marginBottom: "5px" }}>
+                    <div className={styles.case__title}>
                         {caseItem.title}
                     </div>
-                    <div style={{ fontFamily: "monospace", fontSize: "12px", color: "#666" }}>
+                    <div className={styles.case__assigned}>
                         {t("laptop.desktop_screen.cases_app.assigned_to")}: {caseItem.assigned_to || t("laptop.desktop_screen.cases_app.unassigned")}
                     </div>
                 </div>
@@ -180,164 +156,97 @@ export default function CasesList(props: CasesListProps) {
 
         {/* Pagination */}
         {!props.loading && !props.error && props.data && props.maxPages > 1 && (
-            <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+            <div className={styles.pagination}>
                 <button
-                    disabled={props.page === 1}
                     onClick={() => props.onPageChange(props.page - 1)}
-                    style={{
-                        padding: "8px 16px",
-                        border: "2px solid #000",
-                        background: props.page === 1 ? "#ccc" : "white",
-                        cursor: props.page === 1 ? "not-allowed" : "pointer",
-                        fontFamily: "monospace"
-                    }}
+                    disabled={props.page <= 1}
+                    className={`${styles.switchpage__button} ${props.page <= 1 ? "blocked" : "hoverable"}`}
                 >
-                    {t("laptop.desktop_screen.cases_app.previous")}
+                    <ChevronSVG style={{ transform: "rotate(90deg)" }} width="35px" height="35px" />
                 </button>
-                <span style={{ padding: "8px 16px", fontFamily: "monospace", display: "flex", alignItems: "center" }}>
-                    {props.page} / {props.maxPages}
+
+                <span className={styles.page__text}>
+                    {t("laptop.desktop_screen.database_app.page", props.page, props.maxPages)}
                 </span>
+
                 <button
-                    disabled={props.page === props.maxPages}
                     onClick={() => props.onPageChange(props.page + 1)}
-                    style={{
-                        padding: "8px 16px",
-                        border: "2px solid #000",
-                        background: props.page === props.maxPages ? "#ccc" : "white",
-                        cursor: props.page === props.maxPages ? "not-allowed" : "pointer",
-                        fontFamily: "monospace"
-                    }}
+                    disabled={props.page >= props.maxPages}
+                    className={`${styles.switchpage__button} ${props.page >= props.maxPages ? "blocked" : "hoverable"}`}
                 >
-                    {t("laptop.desktop_screen.cases_app.next")}
+                    <ChevronSVG style={{ transform: "rotate(-90deg)" }} width="35px" height="35px" />
                 </button>
             </div>
         )}
 
         {/* Create Case Modal */}
         {showCreateModal && (
-            <div style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: "rgba(0,0,0,0.5)",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                zIndex: 1000
-            }}>
-                <div style={{
-                    background: "#c0c0c0",
-                    border: "3px solid #000",
-                    padding: "20px",
-                    minWidth: "500px",
-                    boxShadow: "5px 5px 0px #000"
-                }}>
-                    <h3 style={{ margin: "0 0 20px 0", fontFamily: "monospace" }}>
+            <div className={styles.modal__overlay}>
+                <div className={styles.modal__content}>
+                    <h3 className={styles.modal__title}>
                         {t("laptop.desktop_screen.cases_app.create_new_case")}
                     </h3>
 
-                    <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-                        <div>
-                            <label style={{ fontFamily: "monospace", fontSize: "14px", display: "block", marginBottom: "5px" }}>
+                    <div className={styles.modal__form}>
+                        <div className={styles.form__group}>
+                            <label className={styles.form__label}>
                                 {t("laptop.desktop_screen.cases_app.case_number")} *
                             </label>
                             <input
                                 type="text"
                                 value={newCaseNumber}
                                 onChange={(e) => setNewCaseNumber(e.target.value)}
-                                style={{
-                                    width: "100%",
-                                    padding: "8px",
-                                    border: "2px solid #000",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px"
-                                }}
+                                className={`${styles.form__input} textable`}
                             />
                         </div>
 
-                        <div>
-                            <label style={{ fontFamily: "monospace", fontSize: "14px", display: "block", marginBottom: "5px" }}>
+                        <div className={styles.form__group}>
+                            <label className={styles.form__label}>
                                 {t("laptop.desktop_screen.cases_app.title")} *
                             </label>
                             <input
                                 type="text"
                                 value={newTitle}
                                 onChange={(e) => setNewTitle(e.target.value)}
-                                style={{
-                                    width: "100%",
-                                    padding: "8px",
-                                    border: "2px solid #000",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px"
-                                }}
+                                className={`${styles.form__input} textable`}
                             />
                         </div>
 
-                        <div>
-                            <label style={{ fontFamily: "monospace", fontSize: "14px", display: "block", marginBottom: "5px" }}>
+                        <div className={styles.form__group}>
+                            <label className={styles.form__label}>
                                 {t("laptop.desktop_screen.cases_app.description")}
                             </label>
                             <textarea
                                 value={newDescription}
                                 onChange={(e) => setNewDescription(e.target.value)}
                                 rows={4}
-                                style={{
-                                    width: "100%",
-                                    padding: "8px",
-                                    border: "2px solid #000",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px",
-                                    resize: "vertical"
-                                }}
+                                className={`${styles.form__textarea} textable`}
                             />
                         </div>
 
-                        <div>
-                            <label style={{ fontFamily: "monospace", fontSize: "14px", display: "block", marginBottom: "5px" }}>
+                        <div className={styles.form__group}>
+                            <label className={styles.form__label}>
                                 {t("laptop.desktop_screen.cases_app.assigned_to")}
                             </label>
                             <input
                                 type="text"
                                 value={newAssignedTo}
                                 onChange={(e) => setNewAssignedTo(e.target.value)}
-                                style={{
-                                    width: "100%",
-                                    padding: "8px",
-                                    border: "2px solid #000",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px"
-                                }}
+                                className={`${styles.form__input} textable`}
                             />
                         </div>
 
-                        <div style={{ display: "flex", gap: "10px", justifyContent: "flex-end", marginTop: "10px" }}>
+                        <div className={styles.modal__actions}>
                             <button
                                 onClick={() => setShowCreateModal(false)}
-                                style={{
-                                    padding: "10px 20px",
-                                    background: "white",
-                                    border: "2px solid #000",
-                                    cursor: "pointer",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px"
-                                }}
+                                className={`${styles.cancel__button} hoverable`}
                             >
                                 {t("laptop.desktop_screen.cases_app.cancel")}
                             </button>
                             <button
                                 onClick={handleCreateCase}
                                 disabled={!newCaseNumber || !newTitle}
-                                style={{
-                                    padding: "10px 20px",
-                                    background: (!newCaseNumber || !newTitle) ? "#ccc" : "#008080",
-                                    color: "white",
-                                    border: "2px solid #000",
-                                    cursor: (!newCaseNumber || !newTitle) ? "not-allowed" : "pointer",
-                                    fontFamily: "monospace",
-                                    fontSize: "14px"
-                                }}
+                                className={`${styles.submit__button} hoverable`}
                             >
                                 {t("laptop.desktop_screen.cases_app.create")}
                             </button>
